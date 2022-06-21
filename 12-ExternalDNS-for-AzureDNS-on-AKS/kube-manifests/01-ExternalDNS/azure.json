@@ -1,0 +1,7 @@
+{
+  "tenantId": "9a6b1796-f4c1-4ac1-a3de-5bf3d440417f",
+  "subscriptionId": "6b838ade-40f3-43c4-b945-1de795ef5ba1",
+  "resourceGroup": "aks-rg1", 
+  "useManagedIdentityExtension": true,
+  "userAssignedIdentityID": "c6a06d99-2c4a-402b-8d19-7ddb22782365"  
+}

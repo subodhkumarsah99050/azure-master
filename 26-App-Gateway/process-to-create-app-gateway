@@ -1,0 +1,55 @@
+1. Login to the azure portal.
+Link: https://portal.azure.us
+Username: sxxxxxxxxxxx.onmicrosoft.com
+Password: xxxxxxxxxxxxxx
+
+2. Go to your required AKS cluster. (This is best way for enabling App-Gateway)
+Click on -> Networking > Application Gateway ingress controller (Enable ingress controller)
+Click on "Enable ingress controller" and enable it.
+
+or, 
+
+Enabling App-Gateway through cli:
+# appgwId=$(az network application-gateway show -n myApplicationGateway -g myResourceGroup -o tsv --query "id")
+az aks enable-addons -n myCluster -g myResourceGroup -a ingress-appgw --appgw-id $appgwId
+
+3. Go to the cluster and check app-gateway pods and services are becomes up and running or not.
+# kubectl get pod -A
+# kubectl get service -A
+
+4. Login in Freenom or in any other registar and register a domain.
+e.g: abcd.com
+Username: sxxxxxxxxxx4x@gmail.com
+Password: Sxxxxxxxx@xx3
+
+5. Login in ssl for free.
+download ssl for abcd.com
+
+6. create a secrets with downloaded certificates.
+#mkdir app-gateway
+#cd app-gateway
+Note: download certificates in this folder. Then run below command for createing secrets.
+Here, secret name is: viq-tls-secret
+#kubectl create secret tls viq-tls-secret \
+ --cert=/home/subodh/kubedir/certificate.crt \
+ --key=/home/subodh/kubedir/private.key
+
+7. Apply kube-manifests:
+#cd 26-App-Gateway/kube-manifests
+#kubectl apply -f .
+
+8. check pod,service and secret status.
+kubectl get pod,svc,secret
+
+9. Press "window + r" button >  text "Drivers" > Go to the "Drivers" > click on "etc" folder >
+open "hosts" file in notepad++ > 
+"Cluster IP"   abcd.com
+after updating cluster IP with domain name save this file.
+
+10. Go to the chrom  and navigate "abcd.com"
+Right click on "lock" icon > Connection is secure > Certificate is valid > Check same certificate is there or not which we have uploaded. 
+
+
+
+
+
