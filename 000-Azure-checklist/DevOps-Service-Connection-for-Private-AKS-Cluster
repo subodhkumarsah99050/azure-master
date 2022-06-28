@@ -1,0 +1,39 @@
+Process for creating "New Kubernetes service connection" for any regional or Private AKS cluster. 
+
+1. Go to the "Azure Pipelines" > Project Setting > Service Connection > New Service Connection > kubernetes >
+Service Account > 
+Execute below command on AKS Cluster:
+
+This command output paste in "Server Url".
+## kubectl config view --minify -o jsonpath={.clusters[0].cluster.server}
+
+2. For getting Secret follow below steps:
+
+For serviceAccounts: # kubectl get sa
+O/P: default
+
+Here,
+service-account-name: default
+namespace: default
+
+## kubectl get serviceAccounts <service-account-name> -n <namespace> -o=jsonpath={.secrets[*].name}
+# kubectl get serviceAccounts default -n default -o=jsonpath={.secrets[*].name}
+Note: This command output will give "service-account-secret-name".
+e.g: default-token-pfz47
+
+## kubectl get secret <service-account-secret-name> -n <namespace> -o json
+#kubectl get secret default-token-pfz47 -n default -o json
+Note: This command will give secret in json formate.
+
+
+Paste last command output in "secret" section.
+
+3. Service connection name
+Provide service connection name as you expect.
+
+4. Description (optional)
+Provide description if you want.
+
+5. In "Security",
+click on checkbox,
+for providing grant access to all pipeline(Grant access permission to all pipelines).
