@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app4-nginx-deployment
+  namespace: test4
+  labels:
+    app: app4-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app4-nginx
+  template:
+    metadata:
+      labels:
+        app: app4-nginx
+    spec:
+      containers:
+        - name: app4-nginx
+          image: stacksimplify/kube-nginxapp1:1.0.0
+          ports:
+            - containerPort: 80
+
+   

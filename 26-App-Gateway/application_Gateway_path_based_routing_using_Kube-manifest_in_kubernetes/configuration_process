@@ -1,0 +1,71 @@
+Process to create Application Gateway path based routing using Kube-manifest in kubernetes.
+
+Steps-01:
+Login to the Azure Portal.
+
+Steps-02:
+Go to the AKS.
+
+Steps-03:
+Click on "Networking" > 
+-> Enable HTTP application routing
+-> Enable ingress controller
+
+Note: In Production do not enable "Enable HTTP application routing". Only enable "Enable ingress controller"
+
+Steps-04:
+Once both are enable then go to the CLI and check ingress status using below command.
+
+Command to check all ingress:
+k get ing -A
+
+Command to check all service:
+kubectl get service -A
+
+Command to check all pod:
+kubectl get po -A
+
+
+Step-05: 
+Register a domain and get the SSL certificate for that domain. 
+Use below link for regestring a domain and getting SSL certificate.
+Link: https://github.com/subodhkumarsah99050/SSL_Certificates_Details/blob/master/free-domain_name-SSL_Certificate-PFX_Certificate_file
+
+Steps-06:
+Keep your domain certificate and private file on a perticular location(/home/subodh/git-work/SSL_Certificates_Details/viq-test.tk).
+Create Secrets using that files.
+Command command to craete secret:
+kubectl create secret tls viq-tls-secret -n test1\
+ --cert=/home/subodh/git-work/SSL_Certificates_Details/viq-test.tk/certificate.crt \
+ --key=/home/subodh/git-work/SSL_Certificates_Details/viq-test.tk/private.key
+ 
+# command to check secret:
+kubectl get secret -n test1
+
+Steps-07:
+Now create a deployment, loadbalancer service and ingress kube-manifest in a perticular namespace and the deploy all that resources.
+
+cd deployment/
+
+# This command will deploy all deployment, loadbalancer and ingress service
+kubectl apply -Rf .
+
+Steps-08:
+
+Kubectl get pod,svc,ing -n test1
+
+Step-09:
+Log-in in your domain registar.
+Link: https://my.freenom.com/
+
+Click on service > My Domain > Now on your domain "click on manage domain" > Manage Freenom DNS > In "Modify Records" leave blank "Name" section, select "Type" "A", "TTL" "3600" and in "Target" provide your "Application gateway" public IP.
+
+Command to get Application Gateway Public IP:
+k get ing -A
+
+
+Step-10:
+Command to check our site is configured with our SSL or not.
+curl https://viq-test.tk -kv
+
+Note: It will provide all details certificate related.

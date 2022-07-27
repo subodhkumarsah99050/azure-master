@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginxapp1-ingress-service
+  namespace: test2
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/ssl-redirect: "true"
+    #appgw.ingress.kubernetes.io/override-frontend-port: "444"
+    appgw.ingress.kubernetes.io/backend-path-prefix: "/"
+spec:
+  tls:
+  - hosts:
+   #- viq-test.tk
+    - viq-test.tk
+    secretName: viq-tls-secret
+  rules:
+  #- host: viq-test.tk
+  - host: viq-test.tk
+    http:
+      paths:
+      - path: /test2/
+        pathType: Prefix
+        backend:
+          service:
+            name: app2-nginx-loadbalancer-service
+            port:
+              number: 80
+        pathType: Exact
