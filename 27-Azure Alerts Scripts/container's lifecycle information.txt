@@ -1,0 +1,7 @@
+Link: https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-log-query
+
+List all of a container's lifecycle information:
+
+ContainerInventory
+| project Computer, Name, Image, ImageTag, ContainerState, CreatedTime, StartedTime, FinishedTime
+| render table

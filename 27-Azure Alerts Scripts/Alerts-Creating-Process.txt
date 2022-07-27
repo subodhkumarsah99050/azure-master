@@ -1,0 +1,13 @@
+Steps:
+Go to the desired resources and click on "Alerts" >
+Create Alerts > Create Alerts rule > Provide -> Scope -> Condition -> Action -> Details -> Tags -> Review + Create
+
+
+Another Way to create Alerts:
+Go to the desired resources and click on "Alerts" >
+Create Alerts > Create Alerts rule > Provide -> Scope -> Condition -> Action -> Details -> Tags -> Review + Create
+
+Click on "Insight" > "Recommended alerts(Preview)" > Then, "Enable" desired 
+Once it is Enabled then again go to the 
+Alerts > Alerts rule > Click on your "Enable condition" > In Action add "Manage action group" > In "Manage action group"
+define your email id or phone number or etc.
